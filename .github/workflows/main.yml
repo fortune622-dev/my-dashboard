@@ -2,9 +2,8 @@ name: SMIC Daily Trader
 
 on:
   schedule:
-    # 每天香港時間下午 5:00 自動執行 (UTC 時間早上 9:00)
     - cron: '0 9 * * 1-5'
-  workflow_dispatch: # 允許您隨時手動按按鈕執行
+  workflow_dispatch:
 
 jobs:
   run-trader:
@@ -16,11 +15,12 @@ jobs:
       - name: 設定 Python 環境
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.10'
 
-      - name: 安裝必要的套件
+      - name: 安裝必要的套件並強制升級
         run: |
-          pip install yfinance pandas
+          pip install --upgrade pip
+          pip install --upgrade yfinance pandas
 
       - name: 執行中芯短炒檢查程式
         run: |
