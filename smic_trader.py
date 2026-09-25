@@ -3,6 +3,10 @@ import os
 import pandas as pd
 import yfinance as yf
 
+# 自動確保雲端上有這兩個資料夾
+os.makedirs("待買入", exist_ok=True)
+os.makedirs("已買入", exist_ok=True)
+
 # 資料夾路徑定義
 PENDING_PATH = "待買入/position_status.json"
 ACTIVE_PATH = "已買入/position_status.json"
