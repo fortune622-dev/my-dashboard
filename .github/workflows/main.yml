@@ -2,7 +2,7 @@ name: SMIC Daily Trader
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'
+    - cron: '30 7 * * 1-5'
   workflow_dispatch:
 
 jobs:
