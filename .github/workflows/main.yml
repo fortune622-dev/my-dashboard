@@ -1,0 +1,27 @@
+name: SMIC Daily Trader
+
+on:
+  schedule:
+    # 每天香港時間下午 5:00 自動執行 (UTC 時間早上 9:00)
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch: # 允許您隨時手動按按鈕執行
+
+jobs:
+  run-trader:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取得您的 GitHub 程式碼
+        uses: actions/checkout@v4
+
+      - name: 設定 Python 環境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: 安裝必要的套件
+        run: |
+          pip install yfinance pandas
+
+      - name: 執行中芯短炒檢查程式
+        run: |
+          python smic_trader.py
