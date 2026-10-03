@@ -1,0 +1,26 @@
+name: 981 SMIC Daily Scanner
+
+on:
+  schedule:
+    # 每天 UTC 時間 07:30 (即香港時間下午 15:30) 執行
+    # 1-5 代表星期一至星期五
+    - cron: '30 7 * * 1-5'
+  workflow_dispatch: # 這個設定會讓你的 GitHub 頁面出現一個「Run workflow」手動執行按鈕
+
+jobs:
+  run-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Requirements
+        run: pip install yfinance pandas ta
+
+      - name: Run SMIC Strategy
+        run: python smic_trader.py
